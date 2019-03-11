@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ratatoskr.battlegugu.dao.BattleDao">
+
+    <select id="queryGuGuList" resultType="com.ratatoskr.battlegugu.entity.Battle">
+        SELECT
+        a.order_id,a.uid,a.leave_desc,a.is_join,a.battle_date
+        FROM battleinfo a,user b
+        WHERE a.uid=b.uid AND b.is_delete=FALSE AND a.battle_date=#{battleDate} AND b.status=#{status}
+    </select>
+
+    <insert id="insertBattle" parameterType="com.ratatoskr.battlegugu.entity.Battle">
+        INSERT INTO battleinfo
+        (uid, leave_desc, battle_date,is_join) VALUES
+        (#{uid},#{leaveDesc},#{battleDate},#{isJoin})
+    </insert>
+
+</mapper>

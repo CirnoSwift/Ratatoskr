@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ratatoskr.battlegugu.dao.UserDao">
+    <select id="queryUser" resultType="com.ratatoskr.battlegugu.entity.User">
+        SELECT
+        uid,username,password,nickname,status,role,is_delete
+        FROM user WHERE is_delete = FALSE
+    </select>
+
+    <select id="queryUserById" resultType="com.ratatoskr.battlegugu.entity.User">
+        SELECT
+        uid,username,password,nickname,status,role,is_delete
+        FROM user WHERE is_delete = FALSE AND uid=#{uid}
+    </select>
+
+    <select id="queryUserByName" resultType="com.ratatoskr.battlegugu.entity.User">
+        SELECT
+        uid,username,password,nickname,status,role,is_delete
+        FROM user WHERE is_delete = FALSE AND username=#{username}
+    </select>
+
+    <update id="updateUser" parameterType="com.ratatoskr.battlegugu.entity.User">
+        UPDATE user
+        <set>
+            <if test="uid!=null">uid=#{uid},</if>
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="status!=null">status=#{status}</if>
+        </set>
+        WHERE uid=#{uid}
+    </update>
+
+    <insert id="insertUser" parameterType="com.ratatoskr.battlegugu.entity.User">
+        INSERT INTO user
+        (uid, username, password, nickname, status, role, is_delete)
+        VALUES
+        (#{uid},#{username},#{password},#{nickname},#{status},#{role},#{isDelete})
+    </insert>
+
+</mapper>
